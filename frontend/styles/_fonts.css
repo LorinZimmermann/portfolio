@@ -1,0 +1,15 @@
+/*--- My Font ---*/
+/*regular*/
+/*@font-face {
+    font-family: 'Name';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/filename.woff2') format('woff2');
+}*/
+
+/* Standard font stack with Helvetica Neue */
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+

@@ -1,0 +1,177 @@
+@import "_fonts.css";
+@import "_resets.css";
+
+/* Definition of base styles. */
+:root {
+    /* colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    /* gaps & sizes */
+    --gap-around: 40px;
+    /* fonts */
+    --font-h1: normal 64px/120% serif;
+}
+
+/* Styling of all available layout components. */
+[data-layout="header"] {
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction:row ;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-black);
+}
+[data-layout="header"] > a {
+    text-decoration: none;
+    color: var(--color-black);
+    font-size: 12px;
+}
+[data-layout="header"] .nav-container {
+    .nav {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-self: center;
+        gap: 20px;
+        a {
+            text-decoration: none;
+            color: var(--color-black);
+            font-size: 12px;
+        }
+    }
+}
+[data-layout="footer"] {
+    padding: 20px;
+    background-color: var(--color-white);
+}
+[data-layout="footer"] .footer-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-black);
+    padding-top: 20px;
+}
+[data-layout="footer"] .footer-left {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+[data-layout="footer"] .footer-left span {
+    font-size: 12px;
+    color: var(--color-black);
+}
+[data-layout="footer"] .footer-right {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+[data-layout="footer"] .footer-right .nav-container {
+    .nav {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 20px;
+        a {
+            text-decoration: none;
+            color: var(--color-black);
+            font-size: 12px;
+        }
+    }
+}
+[data-layout="footer"] .footer-right span {
+    font-size: 12px;
+    color: var(--color-black);
+}
+
+/* Styling of all available page components. */
+[data-page] {
+    width: 100%;
+    height: 100%;
+}
+
+/* Styling of all available module components. */
+[data-module] {
+    overflow: clip;
+    position: relative;
+    width: 100%;
+}
+[data-module="example"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    & > .image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        inset: 0;
+    }
+    & > .title {
+        position: relative;
+        color: white;
+        font: var(--font-h1);
+        text-align: center;
+    }
+}
+[data-module="hero_front"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--color-white);
+    .title {
+        color: var(--color-black);
+        font-size: 36px;
+        line-height: 1.2;
+        text-align: center;
+        font-family: monospace;
+        letter-spacing: -4px;
+        white-space: nowrap;
+    }
+    .title .letter {
+        display: inline-block;
+    }
+    .subline {
+        color: var(--color-black);
+        font-size: 18px;
+        opacity: 0.5;
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+/* Styling of all available teaser components. */
+
+/* Styling of utility classes, can be added anywhere in the project. */
+
+/* BREAKPOINT: 3xl */
+@media (max-width: 1514px) {}
+
+/* BREAKPOINT: xl */
+@media (max-width: 1280px) {}
+
+/* BREAKPOINT: lg */
+@media (max-width: 1024px) {}
+
+/* BREAKPOINT: md */
+@media (max-width: 768px) {}
+
+/* BREAKPOINT: sm */
+@media (max-width: 640px) {}
+
+/* BREAKPOINT: xs */
+@media (max-width: 425px) {}
+
+/* BREAKPOINT: xxs */
+@media (max-width: 400px) {}
