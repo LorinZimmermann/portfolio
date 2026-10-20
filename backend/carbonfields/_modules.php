@@ -17,6 +17,25 @@ Container::make('post_meta', 'Module')
                Field::make('text', 'title', 'Titel')->set_required(),
                Field::make('text', 'subline', 'Subline'),
             ])
+            //-> ueber_mich
+            ->add_fields('ueber_mich', 'Über mich', [
+                Field::make('image', 'image', 'Bild')->set_required(),
+                Field::make('text', 'title', 'Überschrift')->set_required(),
+                Field::make('textarea', 'text', 'Fliesstext')->set_required(),
+            ])
+            //-> page_title
+            ->add_fields('page_title', 'Seitentitel', [
+                Field::make('text', 'title', 'Titel')->set_required(),
+            ])
+            //-> video_project
+            ->add_fields('video_project', 'Videoprojekt', [
+                Field::make('text', 'title', 'Videotitel')->set_required(),
+                Field::make('text', 'year', 'Jahr')->set_required(),
+                Field::make('text', 'type', 'Art des Videos')->set_required(),
+                Field::make('oembed', 'video', 'Video')->set_required(),
+                Field::make('textarea', 'description', 'Projektbeschreibung')->set_required(),
+                Field::make('text', 'role', 'Rolle')->set_required(),
+            ])
             // todo: add new modules here
             // -> SETTINGS
             ->set_layout('tabbed-vertical')
@@ -32,6 +51,9 @@ function render_modules (): void {
         // -> Modifiziere die Daten des Moduls, falls nötig, basierend auf dem Modultyp
         switch ($module['_type']) {
             case 'example':
+                $module['image'] = get_media_by_id($module['image'], 'full');
+                break;
+            case 'ueber_mich':
                 $module['image'] = get_media_by_id($module['image'], 'full');
                 break;
                 // todo: add data modifications for modules here as a new case
