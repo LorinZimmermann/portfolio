@@ -41,6 +41,9 @@ Container::make('post_meta', 'Module')
             //-> photography_project
             ->add_fields('photography_project', 'Fotografieprojekt', [
                 Field::make('text', 'title', 'Fotografietitel')->set_required(),
+                Field::make('text', 'year', 'Jahr'),
+                Field::make('text', 'type', 'Art der Fotografie'),
+                Field::make('textarea', 'description', 'Projektbeschreibung'),
                 Field::make('media_gallery', 'images', 'Bilder')
                     ->set_help_text('Füge beliebig viele Bilder hinzu. Pro Aufruf werden zufällig zehn Bilder angezeigt.')
                     ->set_required(),
@@ -48,6 +51,8 @@ Container::make('post_meta', 'Module')
             //-> audio_project
             ->add_fields('audio_project', 'Audioprojekt', [
                 Field::make('text', 'title', 'Audiotitel')->set_required(),
+                Field::make('text', 'year', 'Jahr'),
+                Field::make('text', 'type', 'Art des Audioprodukts'),
                 Field::make('textarea', 'description', 'Projektbeschreibung')->set_required(),
                 Field::make('file', 'audio', 'Audiofile')
                     ->set_type(['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4'])

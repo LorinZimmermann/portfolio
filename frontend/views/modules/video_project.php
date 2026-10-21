@@ -33,9 +33,9 @@ if (!$video_embed && $video_url) {
     <header class="project-header">
         <h2 class="title"><?= esc_html($data['title']) ?></h2>
         <div class="project-info">
-            <p class="meta"><?= esc_html($data['year']) ?> / <?= esc_html($data['type']) ?></p>
+            <p class="meta archive-meta"><?= esc_html($data['year']) ?> / <?= esc_html($data['type']) ?></p>
             <p class="description"><?= nl2br(esc_html($data['description'])) ?></p>
-            <p class="role"><strong>ROLLE - </strong><?= esc_html($data['role']) ?></p>
+            <p class="role archive-meta"><strong>ROLLE - </strong><?= esc_html($data['role']) ?></p>
         </div>
     </header>
 

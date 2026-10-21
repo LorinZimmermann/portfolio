@@ -8,6 +8,25 @@ const formatAudioTime = (seconds) => {
     return `${minutes}:${remainingSeconds}`;
 };
 
+const updateArchiveClock = () => {
+    const now = new Date();
+    const pad = (value) => value.toString().padStart(2, '0');
+    const date = document.querySelector('[data-current-date]');
+    const time = document.querySelector('[data-current-time]');
+
+    if (date) {
+        date.textContent = `${pad(now.getDate())}.${pad(now.getMonth() + 1)}.${now.getFullYear()}`;
+    }
+    if (time) {
+        time.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    }
+};
+
+updateArchiveClock();
+if (document.querySelector('[data-current-time]')) {
+    window.setInterval(updateArchiveClock, 1000);
+}
+
 const shufflePhotos = (collage) => {
     const photos = [...collage.querySelectorAll('[data-photo-item]')];
     const layouts = ['portrait', 'landscape', 'wide', 'tall', 'square'];
@@ -48,7 +67,7 @@ document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
 
     let lastPhoto;
     let lastShownAt = 0;
-    hero.addEventListener('pointermove', (event) => {
+    const showRandomPhoto = () => {
         const now = performance.now();
         if (now - lastShownAt < 250) {
             return;
@@ -67,7 +86,20 @@ document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
         photo.classList.add('is-visible');
         lastPhoto = photo;
         lastShownAt = now;
+    };
+
+    hero.addEventListener('pointermove', () => {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            return;
+        }
+        showRandomPhoto();
     });
+
+    window.addEventListener('scroll', () => {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            showRandomPhoto();
+        }
+    }, { passive: true });
 });
 
 window.addEventListener('resize', () => {

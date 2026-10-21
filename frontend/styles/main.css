@@ -14,9 +14,11 @@
 
 /* Styling of all available layout components. */
 [data-layout="header"] {
+    position: fixed;
+    width: 100%;
     padding: 20px;
-    position: sticky;
     top: 0;
+    left: 0;
     z-index: 100;
     display: flex;
     flex-direction:row ;
@@ -24,6 +26,28 @@
     align-items: center;
     background-color: var(--color-white);
     border-bottom: 1px solid var(--color-black);
+}
+body {
+    padding-top: 65px;
+}
+[data-layout="header"] .archive-label,
+[data-layout="footer"] .archive-status,
+.archive-meta,
+[data-module="page_title"] .breadcrumb {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    opacity: 0.5;
+    text-align: center;
+    text-transform: uppercase;
+}
+[data-layout="header"] .archive-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
 }
 [data-layout="header"] > a {
     text-decoration: none;
@@ -66,6 +90,9 @@
     flex-shrink: 0;
     padding: 20px;
     background-color: var(--color-white);
+}
+[data-layout="footer"] .archive-status {
+    margin-bottom: 20px;
 }
 [data-layout="footer"] .footer-content {
     display: flex;
@@ -184,7 +211,7 @@
     }
     .title {
         color: var(--color-black);
-        font-size: 50px;
+        font-size: clamp(30px, 10vw, 50px);
         line-height: 1;
         text-align: center;
         font-family: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
@@ -221,6 +248,17 @@
     padding: var(--gap-around);
     background-color: var(--color-white);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    .breadcrumb {
+        position: absolute;
+        top: 20px;
+        left: var(--gap-around);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        line-height: 1.2;
+        opacity: 0.5;
+        text-transform: uppercase;
+    }
 
     &::after {
         content: "";
@@ -305,8 +343,8 @@
         line-height: 1;
     }
     .meta {
-        font-size: 14px;
         line-height: 1.3;
+        text-align: left;
     }
     .project-info {
         display: grid;
@@ -336,9 +374,14 @@
     }
     .role {
         margin: 0;
-        font-size: 14px;
         line-height: 1.4;
         text-align: right;
+    }
+    .project-info .meta {
+        justify-self: start;
+    }
+    .project-info .role {
+        justify-self: end;
     }
     .role strong {
         font-weight: 400;
@@ -359,9 +402,6 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
     .project-header {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
         margin-bottom: 16px;
     }
     .title {
@@ -370,7 +410,16 @@
         font-weight: 400;
         line-height: 1;
     }
+    .project-info {
+        display: grid;
+        grid-template-columns: minmax(140px, 1fr) minmax(240px, 2fr) minmax(140px, 1fr);
+        gap: 24px;
+        align-items: start;
+        margin-top: 12px;
+    }
     .shuffle-button {
+        grid-column: 3;
+        justify-self: end;
         padding: 0;
         border: 0;
         background: transparent;
@@ -378,6 +427,20 @@
         font: inherit;
         font-size: 14px;
         cursor: pointer;
+    }
+    .archive-meta {
+        grid-column: 1;
+        margin: 0;
+        text-align: left;
+        justify-self: start;
+    }
+    .description {
+        grid-column: 2;
+        max-width: 48ch;
+        margin: 0 auto;
+        font-size: 16px;
+        line-height: 1.45;
+        text-align: left;
     }
     .shuffle-button:hover,
     .shuffle-button:focus-visible {
@@ -440,11 +503,26 @@
         font-weight: 400;
         line-height: 1;
     }
-    .description {
-        max-width: 48ch;
+    .project-info {
+        display: grid;
+        grid-template-columns: minmax(140px, 1fr) minmax(240px, 2fr) minmax(140px, 1fr);
+        gap: 24px;
+        align-items: start;
         margin-top: 12px;
+    }
+    .archive-meta {
+        grid-column: 1;
+        margin: 0;
+        text-align: left;
+        justify-self: start;
+    }
+    .description {
+        grid-column: 2;
+        max-width: 48ch;
+        margin: 0 auto;
         font-size: 16px;
         line-height: 1.45;
+        text-align: left;
     }
     .audio-player {
         display: flex;
@@ -522,33 +600,157 @@
 }
 
 @media (max-width: 768px) {
+    body {
+        padding-top: 53px;
+    }
+    [data-layout="header"] {
+        padding: 12px 16px;
+    }
+    [data-layout="header"] > a,
+    [data-layout="header"] .nav-container a {
+        font-size: 11px;
+    }
+    [data-layout="header"] .nav-container .nav {
+        gap: 12px;
+    }
+    [data-layout="header"] .archive-label {
+        font-size: 8px;
+    }
+    .archive-meta,
+    [data-module="page_title"] .breadcrumb,
+    [data-layout="footer"] .archive-status {
+        font-size: 8px;
+    }
+    [data-layout="footer"] {
+        padding: 16px;
+    }
+    [data-layout="footer"] .archive-status {
+        margin-bottom: 16px;
+        line-height: 1.5;
+    }
+    [data-layout="footer"] .footer-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+        gap: 16px;
+    }
+    [data-layout="footer"] .footer-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    [data-layout="footer"] .footer-right {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        justify-self: end;
+        text-align: right;
+    }
+    [data-layout="footer"] .footer-right .nav-container,
+    [data-layout="footer"] .footer-right .nav {
+        width: 100%;
+    }
+    [data-layout="footer"] .footer-right .nav {
+        justify-content: flex-end;
+        gap: 8px;
+    }
     [data-module="video_project"] {
         .project-info {
             grid-template-columns: 1fr;
             gap: 16px;
+        }
+        .meta {
+            text-align: left;
+        }
+        .role {
+            text-align: right;
         }
         .description {
             max-width: 48ch;
             margin-right: auto;
             margin-left: auto;
         }
-        .role {
-            text-align: left;
+    }
+    [data-module="hero_front"] {
+        height: 72svh;
+
+        .title {
+            font-size: clamp(32px, 9vw, 50px);
+        }
+        .subline {
+            max-width: calc(100% - 32px);
+            font-size: 14px;
         }
     }
+    [data-module="page_title"] .title {
+        font-size: clamp(42px, 11vw, 90px);
+    }
     [data-module="photography_project"] {
+        .project-header {
+            display: block;
+        }
+        .project-info {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        .archive-meta,
+        .description,
+        .shuffle-button {
+            grid-column: 1;
+        }
+        .shuffle-button {
+            justify-self: start;
+        }
         .photo-collage {
             column-count: 3;
         }
     }
     [data-module="audio_project"] {
+        .project-header {
+            display: block;
+        }
+        .project-info {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        .archive-meta,
+        .description {
+            grid-column: 1;
+        }
         .audio-player {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            flex-direction: row;
+            gap: 12px;
+        }
+        .project-header {
+            margin-bottom: 10px;
+        }
+        .description {
+            margin-top: 8px;
+            font-size: 14px;
+            line-height: 1.35;
+        }
+        .audio-toggle {
+            flex: 0 0 76px;
+            width: 76px;
+            font-size: 13px;
         }
         .audio-progress {
-            width: 100%;
+            flex: 1 1 auto;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 8px;
+            font-size: 13px;
+        }
+        .audio-progress .audio-track {
+            grid-column: 1;
+            grid-row: 1;
+        }
+        .audio-progress .audio-time-current {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        .audio-progress .audio-time-total {
+            display: none;
         }
     }
 }
@@ -593,9 +795,65 @@
 
 /* BREAKPOINT: sm */
 @media (max-width: 640px) {
+    [data-layout="header"] {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+    [data-layout="header"] .nav-container .nav {
+        gap: 8px;
+    }
+    [data-module="page_title"] {
+        margin-top: 10vw;
+        margin-bottom: 20vw;
+        padding: 24px;
+    }
+    [data-module="hero_front"] {
+        .title {
+            font-size: clamp(22px, 7vw, 32px);
+        }
+        .subline {
+            font-size: 12px;
+        }
+    }
+    [data-module="page_title"] .breadcrumb {
+        top: 12px;
+        left: 24px;
+        max-width: calc(100% - 48px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     [data-module="photography_project"] {
+        .project-header {
+            display: block;
+        }
+        .project-info {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        .archive-meta,
+        .description,
+        .shuffle-button {
+            grid-column: 1;
+        }
+        .shuffle-button {
+            justify-self: start;
+        }
         .photo-collage {
             column-count: 2;
+        }
+    }
+    [data-module="audio_project"] {
+        .project-header {
+            display: block;
+        }
+        .project-info {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        .archive-meta,
+        .description {
+            grid-column: 1;
         }
     }
 }
