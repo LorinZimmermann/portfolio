@@ -41,6 +41,8 @@ add_action(
 // -> allow uploading svg images
 function wp_init_extend_upload_mimes ($mimes) {
     $mimes['svg'] = 'image/svg+xml';
+    $mimes['mp3'] = 'audio/mpeg';
+    $mimes['wav'] = 'audio/wav';
     return $mimes;
 }
 

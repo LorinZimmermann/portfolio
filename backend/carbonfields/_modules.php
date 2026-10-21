@@ -32,9 +32,26 @@ Container::make('post_meta', 'Module')
                 Field::make('text', 'title', 'Videotitel')->set_required(),
                 Field::make('text', 'year', 'Jahr')->set_required(),
                 Field::make('text', 'type', 'Art des Videos')->set_required(),
-                Field::make('oembed', 'video', 'Video')->set_required(),
+                Field::make('oembed', 'video', 'YouTube-Link')
+                    ->set_help_text('Füge den Link zu einem YouTube-Video ein.')
+                    ->set_required(),
                 Field::make('textarea', 'description', 'Projektbeschreibung')->set_required(),
                 Field::make('text', 'role', 'Rolle')->set_required(),
+            ])
+            //-> photography_project
+            ->add_fields('photography_project', 'Fotografieprojekt', [
+                Field::make('text', 'title', 'Fotografietitel')->set_required(),
+                Field::make('media_gallery', 'images', 'Bilder')
+                    ->set_help_text('Füge beliebig viele Bilder hinzu. Pro Aufruf werden zufällig zehn Bilder angezeigt.')
+                    ->set_required(),
+            ])
+            //-> audio_project
+            ->add_fields('audio_project', 'Audioprojekt', [
+                Field::make('text', 'title', 'Audiotitel')->set_required(),
+                Field::make('textarea', 'description', 'Projektbeschreibung')->set_required(),
+                Field::make('file', 'audio', 'Audiofile')
+                    ->set_type(['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4'])
+                    ->set_required(),
             ])
             // todo: add new modules here
             // -> SETTINGS
@@ -55,6 +72,25 @@ function render_modules (): void {
                 break;
             case 'ueber_mich':
                 $module['image'] = get_media_by_id($module['image'], 'full');
+                break;
+            case 'photography_project':
+                $images = [];
+                foreach ((array) $module['images'] as $image_id) {
+                    $image = get_media_by_id($image_id, 'large');
+                    if ($image) {
+                        $images[] = $image;
+                    }
+                }
+                shuffle($images);
+                $module['images'] = array_slice($images, 0, 20);
+                break;
+            case 'audio_project':
+                $audio = $module['audio'] ?? '';
+                if (is_numeric($audio)) {
+                    $module['audio'] = wp_get_attachment_url((int) $audio);
+                } elseif (is_array($audio)) {
+                    $module['audio'] = $audio['url'] ?? $audio['src'] ?? '';
+                }
                 break;
                 // todo: add data modifications for modules here as a new case
         }
