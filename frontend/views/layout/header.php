@@ -13,23 +13,15 @@ $first_item = array_shift($menu);
     <nav class="nav-container">
         <ul class="nav">
             <?php foreach ($menu as $item): ?>
-                <?php
-                $item_slug = sanitize_title($item['title']);
-                $page_links = [
-                    'video' => '/video/',
-                    'audio' => '/audio/',
-                    'fotografie' => '/fotografie/',
-                ];
-                $item_url = array_key_exists($item_slug, $page_links)
-                    ? home_url($page_links[$item_slug])
-                    : $item['url'];
-                $is_active = array_key_exists($item_slug, $page_links) && is_page($item_slug);
-                ?>
-                <li class="nav-item<?= $is_active ? ' is-active' : '' ?>">
-                    <a target="<?= $item['target'] ?>" href="<?= $item_url ?>">
-                        <?=$item['title']?>
-                    </a>
-                </li>
+            <?php
+            $item_page_id = url_to_postid($item['url']);
+            $is_active = $item_page_id > 0 && is_page($item_page_id);
+            ?>
+            <li class="nav-item<?= $is_active ? ' is-active' : '' ?>">
+                <a target="<?= esc_attr($item['target']) ?>" href="<?= esc_url($item['url']) ?>">
+                    <?= esc_html($item['title']) ?>
+                </a>
+            </li>
             <?php endforeach; ?>
         </ul>
     </nav>
