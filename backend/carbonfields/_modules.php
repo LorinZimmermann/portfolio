@@ -30,13 +30,13 @@ Container::make('post_meta', 'Module')
             //-> video_project
             ->add_fields('video_project', 'Videoprojekt', [
                 Field::make('text', 'title', 'Videotitel')->set_required(),
-                Field::make('text', 'year', 'Jahr')->set_required(),
-                Field::make('text', 'type', 'Art des Videos')->set_required(),
+                Field::make('text', 'year', 'Jahr'),
+                Field::make('text', 'type', 'Art des Videos'),
                 Field::make('oembed', 'video', 'YouTube-Link')
                     ->set_help_text('Füge den Link zu einem YouTube-Video ein.')
                     ->set_required(),
-                Field::make('textarea', 'description', 'Projektbeschreibung')->set_required(),
-                Field::make('text', 'role', 'Rolle')->set_required(),
+                Field::make('textarea', 'description', 'Projektbeschreibung'),
+                Field::make('text', 'role', 'Rolle'),
             ])
             //-> photography_project
             ->add_fields('photography_project', 'Fotografieprojekt', [
@@ -53,7 +53,7 @@ Container::make('post_meta', 'Module')
                 Field::make('text', 'title', 'Audiotitel')->set_required(),
                 Field::make('text', 'year', 'Jahr'),
                 Field::make('text', 'type', 'Art des Audioprodukts'),
-                Field::make('textarea', 'description', 'Projektbeschreibung')->set_required(),
+                Field::make('textarea', 'description', 'Projektbeschreibung'),
                 Field::make('file', 'audio', 'Audiofile')
                     ->set_type(['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4'])
                     ->set_required(),

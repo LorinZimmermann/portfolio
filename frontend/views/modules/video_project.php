@@ -32,11 +32,19 @@ if (!$video_embed && $video_url) {
 <section data-module="video_project">
     <header class="project-header">
         <h2 class="title"><?= esc_html($data['title']) ?></h2>
-        <div class="project-info">
-            <p class="meta archive-meta"><?= esc_html($data['year']) ?> / <?= esc_html($data['type']) ?></p>
-            <p class="description"><?= nl2br(esc_html($data['description'])) ?></p>
-            <p class="role archive-meta"><strong>ROLLE - </strong><?= esc_html($data['role']) ?></p>
-        </div>
+        <?php if (!empty($data['year']) || !empty($data['type']) || !empty($data['description']) || !empty($data['role'])): ?>
+            <div class="project-info">
+                <?php if (!empty($data['year']) || !empty($data['type'])): ?>
+                    <p class="meta archive-meta"><?= esc_html($data['year'] ?? '') ?> / <?= esc_html($data['type'] ?? '') ?></p>
+                <?php endif; ?>
+                <?php if (!empty($data['description'])): ?>
+                    <p class="description"><?= nl2br(esc_html($data['description'])) ?></p>
+                <?php endif; ?>
+                <?php if (!empty($data['role'])): ?>
+                    <p class="role archive-meta"><strong>ROLLE - </strong><?= esc_html($data['role']) ?></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </header>
 
     <?php if ($video_embed): ?>

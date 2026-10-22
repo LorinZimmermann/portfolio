@@ -7,12 +7,16 @@ $audio_type = $audio_url ? (wp_check_filetype($audio_url)['type'] ?? '') : '';
 <section data-module="audio_project">
     <header class="project-header">
         <h2 class="title"><?= esc_html($data['title']) ?></h2>
-        <div class="project-info">
-            <?php if (!empty($data['year']) || !empty($data['type'])): ?>
-                <p class="meta archive-meta"><?= esc_html($data['year'] ?? '') ?> / <?= esc_html($data['type'] ?? '') ?></p>
-            <?php endif; ?>
-            <p class="description"><?= nl2br(esc_html($data['description'])) ?></p>
-        </div>
+        <?php if (!empty($data['year']) || !empty($data['type']) || !empty($data['description'])): ?>
+            <div class="project-info">
+                <?php if (!empty($data['year']) || !empty($data['type'])): ?>
+                    <p class="meta archive-meta"><?= esc_html($data['year'] ?? '') ?> / <?= esc_html($data['type'] ?? '') ?></p>
+                <?php endif; ?>
+                <?php if (!empty($data['description'])): ?>
+                    <p class="description"><?= nl2br(esc_html($data['description'])) ?></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </header>
 
     <?php if ($audio_url): ?>

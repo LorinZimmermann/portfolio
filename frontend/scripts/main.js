@@ -36,18 +36,28 @@ const shufflePhotos = (collage) => {
         [photos[index], photos[randomIndex]] = [photos[randomIndex], photos[index]];
     }
 
-    const visiblePhotos = window.innerWidth <= 768 ? photos.slice(0, 10) : photos;
+    const maxPhotos = window.innerWidth <= 768 ? 10 : 20;
+    const visiblePhotos = photos.slice(0, maxPhotos);
     const hiddenPhotos = photos.slice(visiblePhotos.length);
 
     visiblePhotos.forEach((photo, index) => {
-        photo.className = `photo ${layouts[Math.floor(Math.random() * layouts.length)]}`;
+        photo.classList.remove('portrait', 'landscape', 'wide', 'tall', 'square');
+        photo.classList.add('photo', layouts[Math.floor(Math.random() * layouts.length)]);
         photo.style.order = index;
+        photo.style.setProperty('--photo-delay', `${Math.random() * 420}ms`);
         photo.hidden = false;
         collage.appendChild(photo);
     });
     hiddenPhotos.forEach((photo) => {
         photo.hidden = true;
         collage.appendChild(photo);
+    });
+
+    collage.classList.remove('is-shuffling');
+    window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+            collage.classList.add('is-shuffling');
+        });
     });
 };
 
@@ -56,7 +66,10 @@ document.querySelectorAll('[data-photo-collage]').forEach((collage) => {
 
     const shuffleButton = collage.closest('[data-module="photography_project"]')
         ?.querySelector('[data-photo-shuffle]');
-    shuffleButton?.addEventListener('click', () => shufflePhotos(collage));
+    shuffleButton?.addEventListener('click', () => {
+        shufflePhotos(collage);
+        window.setTimeout(() => collage.classList.remove('is-shuffling'), 650);
+    });
 });
 
 document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
@@ -95,11 +108,14 @@ document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
         showRandomPhoto();
     });
 
-    window.addEventListener('scroll', () => {
+    showRandomPhoto();
+    const scheduleNextPhoto = () => {
         if (window.matchMedia('(max-width: 768px)').matches) {
             showRandomPhoto();
         }
-    }, { passive: true });
+        window.setTimeout(scheduleNextPhoto, 500 + Math.random() * 700);
+    };
+    scheduleNextPhoto();
 });
 
 window.addEventListener('resize', () => {

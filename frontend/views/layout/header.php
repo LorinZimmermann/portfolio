@@ -11,7 +11,8 @@ $first_item = array_shift($menu);
         <?= $first_item['title'] ?>
     </a>
     <div class="archive-label" aria-label="Aktuelles Datum und aktuelle Uhrzeit">
-        <span data-current-date><?= esc_html(wp_date('d.m.Y')) ?></span> /
+        <span data-current-date><?= esc_html(wp_date('d.m.Y')) ?></span>
+        <span aria-hidden="true"> / </span>
         <span data-current-time><?= esc_html(wp_date('H:i:s')) ?></span>
     </div>
     <nav class="nav-container">
