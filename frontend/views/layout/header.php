@@ -7,8 +7,9 @@ $first_item = array_shift($menu);
     <a
         target="<?= $first_item['target'] ?>"
         href="<?= $first_item['url'] ?>"
+        data-label="<?= esc_attr($first_item['title']) ?>"
     >
-        <?= $first_item['title'] ?>
+        <span><?= esc_html($first_item['title']) ?></span>
     </a>
     <div class="archive-label" aria-label="Aktuelles Datum und aktuelle Uhrzeit">
         <span data-current-date><?= esc_html(wp_date('d.m.Y')) ?></span>
@@ -23,8 +24,12 @@ $first_item = array_shift($menu);
             $is_active = $item_page_id > 0 && is_page($item_page_id);
             ?>
             <li class="nav-item<?= $is_active ? ' is-active' : '' ?>">
-                <a target="<?= esc_attr($item['target']) ?>" href="<?= esc_url($item['url']) ?>">
-                    <?= esc_html($item['title']) ?>
+                <a
+                    target="<?= esc_attr($item['target']) ?>"
+                    href="<?= esc_url($item['url']) ?>"
+                    data-label="<?= esc_attr($item['title']) ?>"
+                >
+                    <span><?= esc_html($item['title']) ?></span>
                 </a>
             </li>
             <?php endforeach; ?>

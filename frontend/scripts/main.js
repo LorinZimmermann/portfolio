@@ -22,6 +22,17 @@ const updateArchiveClock = () => {
     }
 };
 
+document.querySelectorAll('[data-module="hero_front"] .letter').forEach((letter) => {
+    const fonts = ['Avenir Next', 'Gill Sans', 'Optima', 'Futura', 'Century Gothic', 'Trebuchet MS'];
+    const changeFont = () => {
+        const font = fonts[Math.floor(Math.random() * fonts.length)];
+        letter.style.fontFamily = `"${font}", sans-serif`;
+    };
+
+    changeFont();
+    window.setInterval(changeFont, 1500 + Math.random() * 1500);
+});
+
 updateArchiveClock();
 if (document.querySelector('[data-current-time]')) {
     window.setInterval(updateArchiveClock, 1000);
@@ -86,7 +97,9 @@ document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
             return;
         }
 
-        const photo = photos[Math.floor(Math.random() * photos.length)];
+        const availablePhotos = photos.filter((item) => item.complete && item.naturalWidth > 0);
+        const photoPool = availablePhotos.length ? availablePhotos : photos;
+        const photo = photoPool[Math.floor(Math.random() * photoPool.length)];
         if (photo === lastPhoto && photos.length > 1) {
             return;
         }
@@ -120,6 +133,25 @@ document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
 
 window.addEventListener('resize', () => {
     document.querySelectorAll('[data-photo-collage]').forEach(shufflePhotos);
+});
+
+document.querySelectorAll('[data-video-player]').forEach((player) => {
+    const launch = player.querySelector('[data-video-launch]');
+    const embed = player.querySelector('[data-video-embed]');
+    const frame = embed?.querySelector('iframe');
+
+    if (!launch || !embed || !frame) {
+        return;
+    }
+
+    launch.addEventListener('click', () => {
+        const source = frame.getAttribute('src');
+        if (source && !/[?&]autoplay=/.test(source)) {
+            frame.setAttribute('src', `${source}${source.includes('?') ? '&' : '?'}autoplay=1`);
+        }
+        launch.hidden = true;
+        embed.hidden = false;
+    });
 });
 
 document.querySelectorAll('[data-audio-player]').forEach((player) => {

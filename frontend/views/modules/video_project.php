@@ -48,8 +48,13 @@ if (!$video_embed && $video_url) {
     </header>
 
     <?php if ($video_embed): ?>
-        <div class="video-wrapper">
-            <?= $video_embed ?>
+        <div class="video-wrapper" data-video-player>
+            <button class="video-launch" type="button" data-video-launch aria-label="Video abspielen">
+                [ABSPIELEN]
+            </button>
+            <div class="video-embed" data-video-embed hidden>
+                <?= $video_embed ?>
+            </div>
         </div>
     <?php endif; ?>
 

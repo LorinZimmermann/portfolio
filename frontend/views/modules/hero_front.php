@@ -27,7 +27,7 @@ $photography_images = array_values(array_unique($photography_images, SORT_REGULA
     <?php if ($photography_images): ?>
         <div class="hero-photos" aria-hidden="true">
             <?php foreach ($photography_images as $image): ?>
-                <img class="hero-photo" data-hero-photo src="<?= esc_url($image['src']) ?>" alt="" loading="lazy">
+                <img class="hero-photo" data-hero-photo src="<?= esc_url($image['src']) ?>" alt="" loading="eager">
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
@@ -40,21 +40,3 @@ $photography_images = array_values(array_unique($photography_images, SORT_REGULA
         <p class="subline"><?= $data['subline'] ?></p>
     <?php endif; ?>
 </section>
-
-<script>
-(function() {
-    const fonts = ['Avenir Next', 'Gill Sans', 'Optima', 'Futura', 'Century Gothic', 'Trebuchet MS'];
-    const letters = document.querySelectorAll('[data-module="hero_front"] .letter');
-    
-    letters.forEach(letter => {
-        function changeFont() {
-            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-            letter.style.fontFamily = `${randomFont}, sans-serif`;
-        }
-        
-        changeFont();
-        const randomInterval = 1500 + Math.random() * 1500;
-        setInterval(changeFont, randomInterval);
-    });
-})();
-</script>
