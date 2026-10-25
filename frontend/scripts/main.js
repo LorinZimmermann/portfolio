@@ -85,6 +85,37 @@ document.querySelectorAll('[data-photo-collage]').forEach((collage) => {
 
 document.querySelectorAll('[data-module="hero_front"]').forEach((hero) => {
     const photos = [...hero.querySelectorAll('[data-hero-photo]')];
+    hero.querySelectorAll('.title .letter').forEach((letter) => {
+        const desktopFontStyles = [
+            { family: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight: '300', spacing: '-0.02em' },
+            { family: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight: '400', spacing: '0' },
+            { family: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight: '500', spacing: '0.01em' },
+            { family: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight: '600', spacing: '0.02em' },
+            { family: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight: '700', spacing: '-0.01em' },
+            { family: 'Arial, Helvetica, sans-serif', weight: '400', spacing: '0.03em' },
+        ];
+        const mobileFontStyles = [
+            { family: 'Arial, Helvetica, sans-serif', weight: '400', spacing: '-0.04em' },
+            { family: '"Helvetica Neue", Helvetica, Arial, sans-serif', weight: '300', spacing: '0.02em' },
+            { family: 'Verdana, Geneva, sans-serif', weight: '400', spacing: '-0.02em' },
+            { family: '"Trebuchet MS", Arial, sans-serif', weight: '500', spacing: '0.04em' },
+            { family: 'Tahoma, Arial, sans-serif', weight: '700', spacing: '-0.03em' },
+            { family: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', weight: '600', spacing: '0.03em' },
+        ];
+        const changeFont = () => {
+            const fontStyles = window.matchMedia('(max-width: 768px)').matches
+                ? mobileFontStyles
+                : desktopFontStyles;
+            const style = fontStyles[Math.floor(Math.random() * fontStyles.length)];
+            letter.style.fontFamily = style.family;
+            letter.style.fontWeight = style.weight;
+            letter.style.letterSpacing = style.spacing;
+        };
+
+        changeFont();
+        window.setInterval(changeFont, 1500 + Math.random() * 1500);
+    });
+
     if (!photos.length) {
         return;
     }

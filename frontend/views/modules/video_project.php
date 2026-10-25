@@ -1,6 +1,7 @@
 <?php
 $data = $args['data'];
 $video_url = isset($data['video']) ? esc_url_raw($data['video']) : '';
+$thumbnail = $data['thumbnail'] ?? [];
 $video_embed = $video_url ? wp_oembed_get($video_url) : false;
 
 if (!$video_embed && $video_url) {
@@ -48,7 +49,15 @@ if (!$video_embed && $video_url) {
     </header>
 
     <?php if ($video_embed): ?>
-        <div class="video-wrapper" data-video-player>
+        <div class="video-wrapper<?= !empty($thumbnail['src']) ? ' has-poster' : '' ?>" data-video-player>
+            <?php if (!empty($thumbnail['src'])): ?>
+                <img
+                    class="video-poster"
+                    src="<?= esc_url($thumbnail['src']) ?>"
+                    alt=""
+                    aria-hidden="true"
+                >
+            <?php endif; ?>
             <button class="video-launch" type="button" data-video-launch aria-label="Video abspielen">
                 [ABSPIELEN]
             </button>

@@ -35,6 +35,8 @@ Container::make('post_meta', 'Module')
                 Field::make('oembed', 'video', 'YouTube-Link')
                     ->set_help_text('Füge den Link zu einem YouTube-Video ein.')
                     ->set_required(),
+                Field::make('image', 'thumbnail', 'Video-Thumbnail')
+                    ->set_help_text('Optionales Bild, das vor dem Abspielen hinter dem Button angezeigt wird.'),
                 Field::make('textarea', 'description', 'Projektbeschreibung'),
                 Field::make('text', 'role', 'Rolle'),
             ])
@@ -77,6 +79,14 @@ function render_modules (): void {
                 break;
             case 'ueber_mich':
                 $module['image'] = get_media_by_id($module['image'], 'full');
+                break;
+            case 'video_project':
+                $thumbnail = $module['thumbnail'] ?? '';
+                if ($thumbnail) {
+                    $module['thumbnail'] = is_array($thumbnail)
+                        ? $thumbnail
+                        : get_media_by_id($thumbnail, 'large');
+                }
                 break;
             case 'photography_project':
                 $images = [];

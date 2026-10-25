@@ -33,7 +33,7 @@ $photography_images = array_values(array_unique($photography_images, SORT_REGULA
     <?php endif; ?>
     <h1 class="title">
         <?php foreach ($title_letters as $letter): ?>
-            <span class="letter<?= trim($letter) === '' ? ' space' : '' ?>"><?= $letter ?></span>
+            <span class="letter<?= trim($letter) === '' ? ' space' : (trim($letter) === '.' ? ' punctuation' : '') ?>"><?= $letter ?></span>
         <?php endforeach; ?>
     </h1>
     <?php if ($data['subline']):?>
