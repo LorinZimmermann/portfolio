@@ -170,15 +170,26 @@ document.querySelectorAll('[data-video-player]').forEach((player) => {
     const launch = player.querySelector('[data-video-launch]');
     const embed = player.querySelector('[data-video-embed]');
     const frame = embed?.querySelector('iframe');
+    const poster = player.querySelector('.video-poster');
 
     if (!launch || !embed || !frame) {
         return;
     }
 
     launch.addEventListener('click', () => {
+        frame.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+
         const source = frame.getAttribute('src');
-        if (source && !/[?&]autoplay=/.test(source)) {
-            frame.setAttribute('src', `${source}${source.includes('?') ? '&' : '?'}autoplay=1`);
+        if (source) {
+            const separator = source.includes('?') ? '&' : '?';
+            const autoplaySource = /[?&]autoplay=/.test(source)
+                ? source.replace(/([?&])autoplay=[^&]*/i, '$1autoplay=1')
+                : `${source}${separator}autoplay=1`;
+            frame.setAttribute('src', autoplaySource);
+        }
+        player.classList.add('is-playing');
+        if (poster) {
+            poster.hidden = true;
         }
         launch.hidden = true;
         embed.hidden = false;
