@@ -59,3 +59,6 @@ Schicke der KI diese Anleitung und gebe ihr folgende Angaben mit:
 
 ## 📚 Ressourcen
 - [Carbon Fields Dokumentation](https://docs.carbonfields.net/)
+
+## Rechtliche Informationen
+Für Impressum und Datenschutz steht das Modul `legal_text` zur Verfügung. Es enthält jeweils ein Pflichtfeld für Titel und formatierten Rechtstext in zwei Spalten. Auf schmalen Bildschirmen werden die Spalten untereinander dargestellt.

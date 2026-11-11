@@ -38,6 +38,32 @@ if (document.querySelector('[data-current-time]')) {
     window.setInterval(updateArchiveClock, 1000);
 }
 
+const header = document.querySelector('[data-layout="header"]');
+if (header) {
+    let lastScrollY = window.scrollY;
+    let scrollTicking = false;
+
+    const updateHeaderVisibility = () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY <= 0 || currentScrollY < lastScrollY) {
+            header.classList.remove('is-hidden');
+        } else if (currentScrollY > lastScrollY) {
+            header.classList.add('is-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+        scrollTicking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            window.requestAnimationFrame(updateHeaderVisibility);
+            scrollTicking = true;
+        }
+    }, { passive: true });
+}
+
 const shufflePhotos = (collage) => {
     const photos = [...collage.querySelectorAll('[data-photo-item]')];
     const layouts = ['portrait', 'landscape', 'wide', 'tall', 'square'];

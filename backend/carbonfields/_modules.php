@@ -27,6 +27,13 @@ Container::make('post_meta', 'Module')
             ->add_fields('page_title', 'Seitentitel', [
                 Field::make('text', 'title', 'Titel')->set_required(),
             ])
+            // -> legal_text
+            ->add_fields('legal_text', 'Rechtliche Informationen', [
+                Field::make('text', 'title_1', 'Titel Spalte 1')->set_required(),
+                Field::make('rich_text', 'text_1', 'Rechtstext Spalte 1')->set_required(),
+                Field::make('text', 'title_2', 'Titel Spalte 2')->set_required(),
+                Field::make('rich_text', 'text_2', 'Rechtstext Spalte 2')->set_required(),
+            ])
             //-> video_project
             ->add_fields('video_project', 'Videoprojekt', [
                 Field::make('text', 'title', 'Videotitel')->set_required(),
@@ -71,7 +78,17 @@ function render_modules (): void {
     if (empty($modules)) {
         return;
     }
+    $video_grid_open = false;
     foreach ($modules as $module) {
+        $is_video_project = $module['_type'] === 'video_project';
+        if ($is_video_project && !$video_grid_open) {
+            echo '<div class="module-grid module-grid--video">';
+            $video_grid_open = true;
+        } elseif (!$is_video_project && $video_grid_open) {
+            echo '</div>';
+            $video_grid_open = false;
+        }
+
         // -> Modifiziere die Daten des Moduls, falls nötig, basierend auf dem Modultyp
         switch ($module['_type']) {
             case 'example':
@@ -117,5 +134,8 @@ function render_modules (): void {
                 'data' => $module
             ]
         );
+    }
+    if ($video_grid_open) {
+        echo '</div>';
     }
 }
